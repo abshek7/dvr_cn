@@ -31,9 +31,13 @@ const DistanceVectorSimulator = () => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
+
   const addNode = (e) => {
     e.preventDefault();
-    if (!formData.nodeId.trim()) {
+  
+ 
+    const nodeId = formData.nodeId.trim()
+    if (!nodeId) {
       toast({
         title: "Error",
         description: "Please enter a node ID",
@@ -41,8 +45,8 @@ const DistanceVectorSimulator = () => {
       });
       return;
     }
-
-    if (nodes.find(n => n.id === formData.nodeId)) {
+  
+    if (nodes.find(n => n.id === nodeId)) {
       toast({
         title: "Error",
         description: "Node ID already exists",
@@ -50,26 +54,26 @@ const DistanceVectorSimulator = () => {
       });
       return;
     }
-
+  
     const angle = (nodes.length * (2 * Math.PI)) / (nodes.length + 1);
     const newNode = {
-      id: formData.nodeId,
+      id: nodeId,
       x: 200 + 150 * Math.cos(angle),
       y: 200 + 150 * Math.sin(angle)
     };
-
+  
     setNodes(prev => [...prev, newNode]);
     setRoutingTables(prev => ({
       ...prev,
-      [formData.nodeId]: [...nodes, newNode].map(n => ({
+      [nodeId]: [...nodes, newNode].map(n => ({
         destination: n.id,
-        nextHop: n.id === formData.nodeId ? '-' : '?',
-        cost: n.id === formData.nodeId ? 0 : Infinity
+        nextHop: n.id === nodeId ? '-' : '?',
+        cost: n.id === nodeId ? 0 : Infinity
       }))
     }));
     updateFormData('nodeId', '');
   };
-
+  
   const addEdge = (e) => {
     e.preventDefault();
     const { edgeFrom, edgeTo, edgeCost } = formData;
@@ -215,11 +219,11 @@ const DistanceVectorSimulator = () => {
           <Card className="p-4">
             <h2 className="text-xl font-semibold mb-4">Add Node</h2>
             <form onSubmit={addNode} className="flex gap-2">
-              <Input
-                placeholder="Node ID"
-                value={formData.nodeId}
-                onChange={(e) => updateFormData('nodeId', e.target.value)}
-              />
+            <Input placeholder="Node ID" value={formData.nodeId} onChange={(e) => {
+    const value = e.target.value.toUpperCase().replace(/[^A-Z]/g, '');  
+    updateFormData('nodeId', value);
+  }}
+/>
               <Button type="submit">Add Node</Button>
             </form>
           </Card>
