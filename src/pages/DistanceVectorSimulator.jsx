@@ -38,17 +38,17 @@ const DistanceVectorSimulator = () => {
 
   const addNode = (e) => {
     e.preventDefault();
-
+  
     const nodeId = formData.nodeId.trim();
-    if (!nodeId) {
+    if (!nodeId || nodeId.length !== 1 || !/^[A-Z]$/.test(nodeId)) {
       toast({
         title: "Error",
-        description: "Please enter a node ID",
+        description: "Node ID must be a single alphabetic character (A-Z)",
         variant: "destructive",
       });
       return;
     }
-
+  
     if (nodes.find((n) => n.id === nodeId)) {
       toast({
         title: "Error",
@@ -57,6 +57,8 @@ const DistanceVectorSimulator = () => {
       });
       return;
     }
+  
+
 
     const angle = (nodes.length * (2 * Math.PI)) / (nodes.length + 1);
     const newNode = {
@@ -228,29 +230,35 @@ const DistanceVectorSimulator = () => {
 
   return (
     <div className="container mx-auto p-4 space-y-4">
-    <div className="flex items-center justify-center gap-4 mb-8">
-      <Avatar className="h-12 w-12">
-        <AvatarImage src="src\assets\avatar.png" alt="DVR" />
-        <AvatarFallback>DVR</AvatarFallback>
-      </Avatar>
-      <h1 className="text-3xl font-bold">DVR Simulator</h1>
-    </div>
+      <div className="flex items-center justify-center gap-4 mb-8">
+        <Avatar className="h-12 w-12">
+          <AvatarImage src="src\assets\avatar.png" alt="DVR" />
+          <AvatarFallback>DVR</AvatarFallback>
+        </Avatar>
+        <h1 className="text-3xl font-bold">DVR Simulator</h1>
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-4">
-
-        <Accordion type="single" collapsible className="mb-4">
+          <Accordion type="single" collapsible className="mb-4">
             <AccordionItem value="example">
               <AccordionTrigger>Example Input:</AccordionTrigger>
               <AccordionContent>
                 <div className="space-y-4">
                   <div className="bg-gray-50 p-4 rounded-lg">
-                    <h3 className="font-semibold mb-2">Sample input : As of now for less number of nodes</h3>
+                    <h3 className="font-semibold mb-2">
+                      Sample input : As of now for less number of nodes
+                    </h3>
                     <pre className="whitespace-pre-wrap text-sm">
-                      Pairwise Distances for A: {'{'}'A': 0, 'B': 1, 'C': 3, 'D': 6{'}'}<br />
-                      Pairwise Distances for B: {'{'}'A': 1, 'B': 0, 'C': 2, 'D': 5{'}'} <br />
-                      Pairwise Distances for C: {'{'}'A': 3, 'B': 2, 'C': 0, 'D': 3{'}'} <br />
-                      Pairwise Distances for D: {'{'}'A': 6, 'B': 5, 'C': 3, 'D': 0{'}'} <br />
+                      Pairwise Distances for A: {"{"}'A': 0, 'B': 1, 'C': 3,
+                      'D': 6{"}"}
+                      <br />
+                      Pairwise Distances for B: {"{"}'A': 1, 'B': 0, 'C': 2,
+                      'D': 5{"}"} <br />
+                      Pairwise Distances for C: {"{"}'A': 3, 'B': 2, 'C': 0,
+                      'D': 3{"}"} <br />
+                      Pairwise Distances for D: {"{"}'A': 6, 'B': 5, 'C': 3,
+                      'D': 0{"}"} <br />
                     </pre>
                   </div>
                 </div>
@@ -258,18 +266,19 @@ const DistanceVectorSimulator = () => {
             </AccordionItem>
           </Accordion>
 
-
           <Card className="p-4">
             <h2 className="text-xl font-semibold mb-4">Add Node</h2>
             <form onSubmit={addNode} className="flex gap-2">
               <Input
-                placeholder="Node ID"
+                placeholder="Node ID (A-Z)"
                 value={formData.nodeId}
                 onChange={(e) => {
                   const value = e.target.value
                     .toUpperCase()
                     .replace(/[^A-Z]/g, "");
-                  updateFormData("nodeId", value);
+                  if (value.length <= 1) {
+                    updateFormData("nodeId", value);
+                  }
                 }}
               />
               <Button type="submit">Add Node</Button>
