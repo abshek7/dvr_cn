@@ -1,8 +1,8 @@
-# React + Vite
+# About:
+This project is basic simulation trail of distance vector routing in computer networks for practice of using components of shadcn/ui
+#
+Here is the demo:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+https://github.com/user-attachments/assets/64810c03-8dbb-4c3d-91d4-090ba17cb2ff
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
