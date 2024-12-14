@@ -59,4 +59,3 @@ const NetworkGraph = ({ nodes, edges, onNodeClick }) => {
 };
 
 export default NetworkGraph;
-
