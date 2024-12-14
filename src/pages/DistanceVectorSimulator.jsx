@@ -3,6 +3,7 @@ import { toast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Accordion,AccordionContent,AccordionItem,AccordionTrigger} from "@/components/ui/accordion";
 import NetworkGraph from "@/components/NetworkGraph";
 import RoutingTable from "@/components/RoutingTable";
@@ -227,7 +228,13 @@ const DistanceVectorSimulator = () => {
 
   return (
     <div className="container mx-auto p-4 space-y-4">
-      <h1 className="text-3xl font-bold text-center mb-8">DVR Simulator</h1>
+    <div className="flex items-center justify-center gap-4 mb-8">
+      <Avatar className="h-12 w-12">
+        <AvatarImage src="src\assets\avatar.png" alt="DVR" />
+        <AvatarFallback>DVR</AvatarFallback>
+      </Avatar>
+      <h1 className="text-3xl font-bold">DVR Simulator</h1>
+    </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-4">
