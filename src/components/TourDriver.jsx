@@ -1,14 +1,25 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
 
 const TourDriver = ({ isOpen, onClose }) => {
   const driverRef = useRef(null);
+  const [isTourActive, setIsTourActive] = useState(false);
 
   useEffect(() => {
     driverRef.current = driver({
       showProgress: true,
       steps: [
+        { 
+          element: '#example-input', 
+          popover: { 
+            title: 'Sample input', 
+            description: 'Sample input : As of now for less number of nodes.',
+            side: "bottom",
+            align: "start"
+          }
+        },
+        
         { 
           element: '#add-node', 
           popover: { 
@@ -18,6 +29,7 @@ const TourDriver = ({ isOpen, onClose }) => {
             align: "start"
           }
         },
+
         { 
           element: '#add-edge', 
           popover: { 
@@ -31,7 +43,7 @@ const TourDriver = ({ isOpen, onClose }) => {
           element: '#network-graph', 
           popover: { 
             title: 'Network Graph', 
-            description: 'This visualizes the network. Click on a node to see its routing table.',
+            description: 'This visualizes the network. Click on a node to see its routing table,be carefull sure tour will begin from start.',
             side: "left",
             align: "start"
           }
@@ -54,8 +66,13 @@ const TourDriver = ({ isOpen, onClose }) => {
             align: "start"
           }
         },
+        { popover: { title: 'Happy Coding', description: 'And that is all, go ahead and experience innovation.' } }
       ],
-      onReset: onClose,
+    
+      onDestroyStarted: () => {
+        setIsTourActive(false);
+        onClose();
+      },
     });
 
     return () => {
@@ -66,10 +83,14 @@ const TourDriver = ({ isOpen, onClose }) => {
   }, [onClose]);
 
   useEffect(() => {
-    if (isOpen && driverRef.current) {
+    if (isOpen && !isTourActive) {
+      setIsTourActive(true);
       driverRef.current.drive();
+    } else if (!isOpen && isTourActive) {
+      driverRef.current.destroy();
+      setIsTourActive(false);
     }
-  }, [isOpen]);
+  }, [isOpen, isTourActive]);
 
   return null;
 };

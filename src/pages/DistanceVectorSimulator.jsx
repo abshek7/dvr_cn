@@ -35,6 +35,11 @@ const DistanceVectorSimulator = () => {
 
   {  /*state for tour using driver.js*/}
   const [isTourOpen, setIsTourOpen] = useState(false);
+  
+  const toggleTour = () => {
+    setIsTourOpen(prevState => !prevState);
+  };
+
 
   const updateFormData = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -233,11 +238,6 @@ const DistanceVectorSimulator = () => {
   };
 
 
-
-  const startTour = () => {
-    setIsTourOpen(true);
-  };
-
   const endTour = () => {
     setIsTourOpen(false);
   };
@@ -255,21 +255,24 @@ const DistanceVectorSimulator = () => {
           </Avatar>
           <h1 className="text-3xl font-bold">DVR Simulator</h1>
         </div>
-        <Button onClick={startTour}>Start Tour</Button>
+        <TourDriver isOpen={isTourOpen} onClose={endTour} />
+      <Button onClick={toggleTour}>
+        {isTourOpen ? 'End Tour' : 'Start Tour'}
+      </Button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-4">
-          <Accordion type="single" collapsible className="mb-4">
-            <AccordionItem value="example">
-              <AccordionTrigger>Example Input:</AccordionTrigger>
-              <AccordionContent>
+          <Accordion type="single" collapsible className="mb-4" id="example-input">
+            <AccordionItem value="example" >
+              <AccordionTrigger >Example Input:</AccordionTrigger>
+              <AccordionContent >
                 <div className="space-y-4">
-                  <div className="bg-gray-50 p-4 rounded-lg">
+                  <div className="bg-gray-50 p-4 rounded-lg" >
                     <h3 className="font-semibold mb-2">
                       Sample input : As of now for less number of nodes
                     </h3>
-                    <pre className="whitespace-pre-wrap text-sm">
+                    <pre className="whitespace-pre-wrap text-sm" >
                       Pairwise Distances for A: {"{"}'A': 0, 'B': 1, 'C': 4{"}"}
                       <br />
                       Pairwise Distances for B: {"{"}'A': 1, 'B': 0, 'C': 2,
