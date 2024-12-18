@@ -8,6 +8,7 @@ import { Accordion,AccordionContent,AccordionItem,AccordionTrigger} from "@/comp
 import NetworkGraph from "@/components/NetworkGraph";
 import RoutingTable from "@/components/RoutingTable";
 import SimulationControls from "@/components/SimulationControls";
+import TourDriver from "@/components/TourDriver";
 
 const DistanceVectorSimulator = () => {
   { /*state for node and edges related to graph*/}
@@ -31,6 +32,9 @@ const DistanceVectorSimulator = () => {
     edgeTo: "",
     edgeCost: "",
   });
+
+  {  /*state for tour using driver.js*/}
+  const [isTourOpen, setIsTourOpen] = useState(false);
 
   const updateFormData = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -228,14 +232,30 @@ const DistanceVectorSimulator = () => {
     });
   };
 
+
+
+  const startTour = () => {
+    setIsTourOpen(true);
+  };
+
+  const endTour = () => {
+    setIsTourOpen(false);
+  };
+
+
+
   return (
     <div className="container mx-auto p-4 space-y-4">
-      <div className="flex items-center justify-center gap-4 mb-8">
-        <Avatar className="h-12 w-12">
-          <AvatarImage src="src\assets\avatar.png" alt="DVR" />
-          <AvatarFallback>DVR</AvatarFallback>
-        </Avatar>
-        <h1 className="text-3xl font-bold">DVR Simulator</h1>
+      <TourDriver isOpen={isTourOpen} onClose={endTour} />
+      <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center gap-4">
+          <Avatar className="h-12 w-12">
+            <AvatarImage src="src\assets\avatar.png" alt="DVR" />
+            <AvatarFallback>DVR</AvatarFallback>
+          </Avatar>
+          <h1 className="text-3xl font-bold">DVR Simulator</h1>
+        </div>
+        <Button onClick={startTour}>Start Tour</Button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -250,15 +270,13 @@ const DistanceVectorSimulator = () => {
                       Sample input : As of now for less number of nodes
                     </h3>
                     <pre className="whitespace-pre-wrap text-sm">
-                      Pairwise Distances for A: {"{"}'A': 0, 'B': 1, 'C': 3,
-                      'D': 6{"}"}
+                      Pairwise Distances for A: {"{"}'A': 0, 'B': 1, 'C': 4{"}"}
                       <br />
                       Pairwise Distances for B: {"{"}'A': 1, 'B': 0, 'C': 2,
-                      'D': 5{"}"} <br />
-                      Pairwise Distances for C: {"{"}'A': 3, 'B': 2, 'C': 0,
+                      'D': 6{"}"} <br />
+                      Pairwise Distances for C: {"{"}'A': 4, 'B': 2, 'C': 0,
                       'D': 3{"}"} <br />
-                      Pairwise Distances for D: {"{"}'A': 6, 'B': 5, 'C': 3,
-                      'D': 0{"}"} <br />
+                      Pairwise Distances for D: {"{"} 'B': 6, 'C': 3{"}"} <br />
                     </pre>
                   </div>
                 </div>
@@ -266,7 +284,7 @@ const DistanceVectorSimulator = () => {
             </AccordionItem>
           </Accordion>
 
-          <Card className="p-4">
+          <Card className="p-4" id="add-node">
             <h2 className="text-xl font-semibold mb-4">Add Node</h2>
             <form onSubmit={addNode} className="flex gap-2">
               <Input
@@ -285,7 +303,7 @@ const DistanceVectorSimulator = () => {
             </form>
           </Card>
 
-          <Card className="p-4">
+          <Card className="p-4" id="add-edge">
             <h2 className="text-xl font-semibold mb-4">Add Edge</h2>
             <form onSubmit={addEdge} className="space-y-2">
               <div className="flex gap-2">
@@ -327,21 +345,25 @@ const DistanceVectorSimulator = () => {
             </form>
           </Card>
 
-          <NetworkGraph
-            nodes={nodes}
-            edges={edges}
-            selectedNode={selectedNode}
-            onNodeClick={setSelectedNode}
-          />
-          <SimulationControls
-            isPlaying={isPlaying}
-            onPlayPause={() => setIsPlaying(!isPlaying)}
-            onReset={handleReset}
-            onStep={performDistanceVectorStep}
-          />
+          <div id="network-graph">
+            <NetworkGraph
+              nodes={nodes}
+              edges={edges}
+              selectedNode={selectedNode}
+              onNodeClick={setSelectedNode}
+            />
+          </div>
+          <div id="simulation-controls">
+            <SimulationControls
+              isPlaying={isPlaying}
+              onPlayPause={() => setIsPlaying(!isPlaying)}
+              onReset={handleReset}
+              onStep={performDistanceVectorStep}
+            />
+          </div>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-4" id="routing-tables">
           {selectedNode ? (
             <RoutingTable
               key={selectedNode}
@@ -366,3 +388,4 @@ const DistanceVectorSimulator = () => {
 };
 
 export default DistanceVectorSimulator;
+
