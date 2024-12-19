@@ -9,6 +9,7 @@ import NetworkGraph from "@/components/NetworkGraph";
 import RoutingTable from "@/components/RoutingTable";
 import SimulationControls from "@/components/SimulationControls";
 import TourDriver from "@/components/TourDriver";
+import avatarImage from "@/assets/avatar.png";
 
 const DistanceVectorSimulator = () => {
   { /*state for node and edges related to graph*/}
@@ -250,7 +251,8 @@ const DistanceVectorSimulator = () => {
       <div className="flex items-center justify-between mb-8">
         <div className="flex items-center gap-4">
           <Avatar className="h-12 w-12">
-            <AvatarImage src="src\assets\avatar.png" alt="DVR" />
+          <AvatarImage src={avatarImage} alt="DVR" />
+
             <AvatarFallback>DVR</AvatarFallback>
           </Avatar>
           <h1 className="text-3xl font-bold">DVR Simulator</h1>
@@ -272,8 +274,8 @@ const DistanceVectorSimulator = () => {
                     <h3 className="font-semibold mb-2">
                       Sample input : As of now for less number of nodes
                     </h3>
-                    <pre className="whitespace-pre-wrap text-sm">
-                     Pairwise Distances for A: {"{"}'A': 0, 'B': 1, 'C': 4{"}"}
+                    <pre className="whitespace-pre-wrap text-sm" >
+                      Pairwise Distances for A: {"{"}'A': 0, 'B': 1, 'C': 4{"}"}
                       <br />
                       Pairwise Distances for B: {"{"}'A': 1, 'B': 0, 'C': 2,
                       'D': 6{"}"} <br />
@@ -391,3 +393,4 @@ const DistanceVectorSimulator = () => {
 };
 
 export default DistanceVectorSimulator;
+
