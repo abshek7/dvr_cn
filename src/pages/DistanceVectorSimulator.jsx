@@ -272,13 +272,8 @@ const DistanceVectorSimulator = () => {
                     <h3 className="font-semibold mb-2">
                       Sample input : As of now for less number of nodes
                     </h3>
-<<<<<<< HEAD
                     <pre className="whitespace-pre-wrap text-sm">
                      Pairwise Distances for A: {"{"}'A': 0, 'B': 1, 'C': 4{"}"}
-=======
-                    <pre className="whitespace-pre-wrap text-sm" >
-                      Pairwise Distances for A: {"{"}'A': 0, 'B': 1, 'C': 4{"}"}
->>>>>>> improvements
                       <br />
                       Pairwise Distances for B: {"{"}'A': 1, 'B': 0, 'C': 2,
                       'D': 6{"}"} <br />
