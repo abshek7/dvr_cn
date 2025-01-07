@@ -253,7 +253,7 @@ const DistanceVectorSimulator = () => {
             <AvatarImage src="src\assets\avatar.png" alt="DVR" />
             <AvatarFallback>DVR</AvatarFallback>
           </Avatar>
-          <h1 className="text-3xl font-bold">DVR Simulator</h1>
+          <h1 className="text-3xl font">DVR Simulator</h1>
         </div>
         <TourDriver isOpen={isTourOpen} onClose={endTour} />
       <Button onClick={toggleTour}>
@@ -265,7 +265,7 @@ const DistanceVectorSimulator = () => {
         <div className="space-y-4">
           <Accordion type="single" collapsible className="mb-4" id="example-input">
             <AccordionItem value="example" >
-              <AccordionTrigger >Example Input:</AccordionTrigger>
+              <AccordionTrigger ><b>Example Input:</b></AccordionTrigger>
               <AccordionContent >
                 <div className="space-y-4">
                   <div className="bg-gray-50 p-4 rounded-lg" >
