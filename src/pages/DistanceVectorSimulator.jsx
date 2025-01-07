@@ -9,6 +9,7 @@ import NetworkGraph from "@/components/NetworkGraph";
 import RoutingTable from "@/components/RoutingTable";
 import SimulationControls from "@/components/SimulationControls";
 import TourDriver from "@/components/TourDriver";
+import avatarImage from "@/assets/avatar.png";
 
 const DistanceVectorSimulator = () => {
   { /*state for node and edges related to graph*/}
@@ -250,7 +251,8 @@ const DistanceVectorSimulator = () => {
       <div className="flex items-center justify-between mb-8">
         <div className="flex items-center gap-4">
           <Avatar className="h-12 w-12">
-            <AvatarImage src="src\assets\avatar.png" alt="DVR" />
+          <AvatarImage src={avatarImage} alt="DVR" />
+
             <AvatarFallback>DVR</AvatarFallback>
           </Avatar>
           <h1 className="text-3xl font">DVR Simulator</h1>
