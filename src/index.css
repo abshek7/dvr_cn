@@ -24,7 +24,10 @@
   --base-font-weight: 500;
   --heading-font-weight: 700;
 
-  --shadow: var(--box-shadow-x, 4px) var(--box-shadow-y, 4px) 0px 0px var(--border, #000);
+  /* Fix shadow definition */
+  --shadow-x: 4px;
+  --shadow-y: 4px;
+  --shadow: var(--shadow-x) var(--shadow-y) 0px 0px var(--border);
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 0 0% 98%;
 }
@@ -39,7 +42,7 @@
   --ring: #fff;
   --ring-offset: #000;
 
-  --shadow: var(--box-shadow-x, 4px) var(--box-shadow-y, 4px) 0px 0px var(--border, #000);
+  --shadow: var(--shadow-x) var(--shadow-y) 0px 0px var(--border);
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 0 0% 98%;
 }
