@@ -1,9 +1,8 @@
-/** @type {import('tailwindcss').Config} */
-const tailwindcssAnimate = require('tailwindcss-animate');
-
-module.exports = {
-  darkMode: ["class"],
-  content: ["./index.html", "./src/**/*.{ts,tsx,js,jsx}"],
+import tailwindcssAnimate from 'tailwindcss-animate';
+ 
+export default {
+    darkMode: ["class"],
+    content: ["./index.html", "./src/**/*.{ts,tsx,js,jsx}"],
   theme: {
     extend: {
       borderRadius: {
@@ -86,5 +85,7 @@ module.exports = {
       },
     },
   },
+
   plugins: [tailwindcssAnimate],
-};
+}
+ 
